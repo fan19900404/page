@@ -1,0 +1,23 @@
+{
+  "name": "page",
+  "version": "0.0.1",
+  "description": "提供基础翻页插件",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fan19900404/page.git"
+  },
+  "keywords": [
+    "JavaScript",
+    "page"
+  ],
+  "author": "fan19900404",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/fan19900404/page/issues"
+  },
+  "homepage": "https://github.com/fan19900404/page#readme"
+}
