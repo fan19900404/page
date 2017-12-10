@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>翻页组件demo</title>
+  <style>
+    .active{
+      color:red;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="demo"></div>
+  <script src="./jquery.min.js"></script>
+  <script src="../dist/page.js"></script>
+  <script>
+    $(function () {
+      var demoData = [
+        ['第一页', 'Hi'],
+        ['第二页', 'Hello'],
+        ['第三页', 'End']
+      ]
+      var $demo = $('#demo');
+      $demo.html('<div class="content"></div><div class="prev">上一页</div><div class="next">下一页</div>')
+      
+      var changeBtnState = function (up,down) {
+        var $prev = $demo.find('.prev');
+        var $next = $demo.find('.next');
+        
+        if (up) {
+          $prev.addClass('active')
+        } else {
+          $prev.removeClass('active');
+        }
+
+        if (down) {
+          $next.addClass('active')
+        } else {
+          $next.removeClass('active');
+        }
+      }
+
+      var page = new Page({
+        total: 3,
+        data:demoData[0],
+        render: function (data,upBtnState,downBtnState) {
+          var html = '';
+          for (var i = 0, len = data.length; i < len; i++) {
+            html += '<div>' + data[i] + '</div>';
+          }
+          $('#demo .content').html(html);
+          changeBtnState(upBtnState,downBtnState);
+        }
+      })
+
+
+
+      $demo.on('click', '.prev,.next', function () {
+        if (!$(this).hasClass('active')) {
+          return null;
+        }
+
+        if ($(this).hasClass('prev')) {
+          page.prev(demoData[page.pageNum - 2]);
+        }
+
+        if ($(this).hasClass('next')) {
+          page.next(demoData[page.pageNum]);
+        }
+      })
+    })
+  </script>
+</body>
+
+</html>
