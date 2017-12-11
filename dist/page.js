@@ -1,7 +1,11 @@
-var Page = (function () {
-    function Page(obj) {
+var _Page = (function () {
+    function _Page(obj) {
         this.total = obj.total || 1;
-        this.render = obj.render || function () { return null; };
+        this.render =
+            obj.render ||
+                function () {
+                    return null;
+                };
         this.upBtnState = false;
         this.downBtnState = false;
         this.data = obj.data || [];
@@ -11,7 +15,7 @@ var Page = (function () {
         }
         this.render(this.data, this.upBtnState, this.downBtnState);
     }
-    Page.prototype.setPageNum = function (state) {
+    _Page.prototype.setPageNum = function (state) {
         switch (state) {
             case "next":
                 this.pageNum += 1;
@@ -26,21 +30,38 @@ var Page = (function () {
         this.downBtnState = this.pageNum < this.total;
         this.render(this.data, this.upBtnState, this.downBtnState);
     };
-    Page.prototype.next = function (data) {
+    _Page.prototype.next = function (data) {
         if (!this.downBtnState) {
             return null;
         }
         this.data = data || [];
         this.setPageNum("next");
     };
-    Page.prototype.prev = function (data) {
+    _Page.prototype.prev = function (data) {
         if (!this.upBtnState) {
             return null;
         }
         this.data = data || [];
         this.setPageNum("prev");
     };
-    return Page;
+    _Page.prototype.reset = function (_a) {
+        var total = _a.total, data = _a.data, render = _a.render;
+        this.total = total || 1;
+        this.data = data || [];
+        this.render =
+            render ||
+                function () {
+                    return null;
+                };
+        this.upBtnState = false;
+        this.downBtnState = false;
+        this.pageNum = 1;
+        if (this.total > 1) {
+            this.downBtnState = true;
+        }
+        this.render(this.data, this.upBtnState, this.downBtnState);
+    };
+    return _Page;
 }());
-window.Page = Page;
+window.Page = _Page;
 //# sourceMappingURL=page.js.map

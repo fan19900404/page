@@ -3,7 +3,7 @@ interface Option {
     render(data: any[]): null;
     data: any[];
 }
-declare class Page {
+declare class _Page {
     total: number;
     upBtnState: boolean;
     downBtnState: boolean;
@@ -14,4 +14,9 @@ declare class Page {
     setPageNum(state: string): void;
     next(data: any): any;
     prev(data: any): any;
+    reset({total, data, render}: {
+        total: any;
+        data: any;
+        render: any;
+    }): void;
 }

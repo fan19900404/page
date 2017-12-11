@@ -5,8 +5,8 @@
  */
 interface Option {
   total: number;
-  render(data:any[]):null;
-  data:any[];
+  render(data: any[]): null;
+  data: any[];
 }
 /**
  * 翻页插件
@@ -17,16 +17,20 @@ interface Option {
  * @property {boolean} upBtnState 上一页按钮的状态
  * @property {boolean} downBtnState 下一页按钮的状态
  */
-class Page {
+class _Page {
   total: number;
   upBtnState: boolean;
   downBtnState: boolean;
   data: any[];
   pageNum: number;
-  render:any;
+  render: any;
   constructor(obj: Option) {
     this.total = obj.total || 1;
-    this.render = obj.render || function(){return null};
+    this.render =
+      obj.render ||
+      function() {
+        return null;
+      };
     this.upBtnState = false;
     this.downBtnState = false;
     this.data = obj.data || [];
@@ -36,7 +40,7 @@ class Page {
       this.downBtnState = true;
     }
 
-    this.render(this.data,this.upBtnState,this.downBtnState);
+    this.render(this.data, this.upBtnState, this.downBtnState);
   }
 
   setPageNum(state: string) {
@@ -52,7 +56,7 @@ class Page {
     }
     this.upBtnState = this.pageNum > 1;
     this.downBtnState = this.pageNum < this.total;
-    this.render(this.data,this.upBtnState,this.downBtnState);
+    this.render(this.data, this.upBtnState, this.downBtnState);
   }
 
   /**
@@ -72,7 +76,7 @@ class Page {
    * 上一页的方法
    *
    * @returns
-   * @memberof Page
+   * @memberof _Page
    */
   prev(data) {
     if (!this.upBtnState) {
@@ -81,6 +85,32 @@ class Page {
     this.data = data || [];
     this.setPageNum("prev");
   }
+/**
+ * 重置方法
+ * 
+ * @param {any} { total, data, render } 
+ * @memberof _Page
+ */
+reset({ total, data, render }) {
+    this.total = total || 1;
+    this.data = data || [];
+    this.render =
+      render ||
+      function() {
+        return null;
+      };
+
+    this.upBtnState = false;
+    this.downBtnState = false;
+
+    this.pageNum = 1;
+
+    if (this.total > 1) {
+      this.downBtnState = true;
+    }
+
+    this.render(this.data, this.upBtnState, this.downBtnState);
+  }
 }
 
-(<any>window).Page = Page;
+(<any>window).Page = _Page;
