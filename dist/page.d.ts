@@ -14,9 +14,10 @@ declare class _Page {
     setPageNum(state: string): void;
     next(data: any): any;
     prev(data: any): any;
-    reset({total, data, render}: {
+    reset({total, data, render, pageNum}: {
         total: any;
         data: any;
         render: any;
+        pageNum: any;
     }): void;
 }

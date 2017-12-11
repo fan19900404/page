@@ -13,7 +13,7 @@ var _Page = (function () {
         if (this.total > 1) {
             this.downBtnState = true;
         }
-        this.render(this.data, this.upBtnState, this.downBtnState);
+        this.render(this);
     }
     _Page.prototype.setPageNum = function (state) {
         switch (state) {
@@ -28,7 +28,7 @@ var _Page = (function () {
         }
         this.upBtnState = this.pageNum > 1;
         this.downBtnState = this.pageNum < this.total;
-        this.render(this.data, this.upBtnState, this.downBtnState);
+        this.render(this);
     };
     _Page.prototype.next = function (data) {
         if (!this.downBtnState) {
@@ -45,7 +45,7 @@ var _Page = (function () {
         this.setPageNum("prev");
     };
     _Page.prototype.reset = function (_a) {
-        var total = _a.total, data = _a.data, render = _a.render;
+        var total = _a.total, data = _a.data, render = _a.render, pageNum = _a.pageNum;
         this.total = total || 1;
         this.data = data || [];
         this.render =
@@ -53,13 +53,10 @@ var _Page = (function () {
                 function () {
                     return null;
                 };
-        this.upBtnState = false;
-        this.downBtnState = false;
-        this.pageNum = 1;
-        if (this.total > 1) {
-            this.downBtnState = true;
-        }
-        this.render(this.data, this.upBtnState, this.downBtnState);
+        this.pageNum = pageNum || 1;
+        this.upBtnState = this.pageNum > 1;
+        this.downBtnState = this.pageNum < this.total;
+        this.render(this);
     };
     return _Page;
 }());

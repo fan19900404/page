@@ -40,7 +40,7 @@ class _Page {
       this.downBtnState = true;
     }
 
-    this.render(this.data, this.upBtnState, this.downBtnState);
+    this.render(this);
   }
 
   setPageNum(state: string) {
@@ -56,7 +56,7 @@ class _Page {
     }
     this.upBtnState = this.pageNum > 1;
     this.downBtnState = this.pageNum < this.total;
-    this.render(this.data, this.upBtnState, this.downBtnState);
+    this.render(this);
   }
 
   /**
@@ -91,7 +91,7 @@ class _Page {
  * @param {any} { total, data, render } 
  * @memberof _Page
  */
-reset({ total, data, render }) {
+reset({ total, data, render, pageNum }) {
     this.total = total || 1;
     this.data = data || [];
     this.render =
@@ -99,17 +99,12 @@ reset({ total, data, render }) {
       function() {
         return null;
       };
+    this.pageNum = pageNum || 1;
 
-    this.upBtnState = false;
-    this.downBtnState = false;
+    this.upBtnState = this.pageNum > 1;
+    this.downBtnState = this.pageNum < this.total;
 
-    this.pageNum = 1;
-
-    if (this.total > 1) {
-      this.downBtnState = true;
-    }
-
-    this.render(this.data, this.upBtnState, this.downBtnState);
+    this.render(this);
   }
 }
 
